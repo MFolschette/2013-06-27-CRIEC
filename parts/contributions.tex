@@ -1,0 +1,160 @@
+% Contributions
+
+\subsection{Personal contributions}
+
+\begin{frame}[c]
+  \frametitle{Translation of PH models}
+  \framesubtitle{\tcite{\citefpimrcmsb}}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{flushleft}
+\vspace*{1cm}
+\hspace*{0.5cm}
+\scalebox{\scaleinf}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,2) rectangle (6.5,4);
+  \path[draw,rounded corners] (-1.5,-1) rectangle (7.5,5);
+  \exphinfblack{}
+\end{tikzpicture}
+}
+\end{flushleft}
+\vspace{1.3cm}
+\begin{center}
+  \tval{Process Hitting}
+  
+  Efficient but recent
+\end{center}
+
+\end{column}
+\begin{column}{0.15\textwidth}
+
+\vspace*{-1.5cm}
+\begin{center}
+\begin{tikzpicture}
+  \path[use as bounding box] (1,-0.25) rectangle (2,0.25);
+  \path[draw=couleurtheme]<3-> (0.6, -0.3) edge[<-,draw,very thick,dashed] (2.6, -0.3);
+  \path[draw=couleurtheme]<4> (0.6, -0.7) edge[->,draw,very thick] (2.6, -0.7);
+\end{tikzpicture}
+\end{center}
+
+\end{column}
+\begin{column}{0.35\textwidth}
+
+\uncover<2->{
+\vspace*{1.4cm}
+\begin{flushright}
+\begin{tikzpicture}[adn]
+  \path[use as bounding box] (.5,-1) rectangle (2,1.5);
+  \path[draw,rounded corners] (-0.6,-.9) rectangle (2.6,2.3);
+  % Gènes
+  \node[inner sep=0] (a) at (0,1.5) {a};
+  \node[inner sep=0] (b) at (0,0) {b};
+  \node[inner sep=0] (z) at (2,0.75) {z};
+  % Arcs
+  \path (a) edge[act] node[elabel,above=-2pt] {$+$} (z);
+  \path (b) edge[inh] node[elabel,below=-2pt] {$-$} (z);
+\end{tikzpicture}
+\hspace*{0.9cm}
+\end{flushright}
+\smallskip
+\vspace*{-.5cm}
+\begin{center}
+  \tval{Usual modelling}\hspace*{0.4cm}
+  
+  Widespread \& readable\hspace*{0.4cm}
+\end{center}
+}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\newcommand{\bigneq}[2]{\tikz{\path[use as bounding box] (-.5,-.75) rectangle (.5,.5);\node[thick,draw=notsodarkred!#1,circle,minimum size=1cm,inner sep=0,fill=notsodarkred!#2,text=notsodarkred!#1] {\Huge$\neq$};}}
+\newcommand{\bigeq}{\tikz{\path[use as bounding box] (-.5,-.75) rectangle (.5,1);\node[thick,draw=darkgreen,circle,inner sep=0,minimum size=1cm,text height=.5cm,fill=darkgreen!20,text=darkgreen] {\Huge$=$};}}
+
+\begin{frame}[c]
+  \frametitle{Enrich PH semantics}
+  \framesubtitle{\tcite{\citefpmrcstobio}}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{flushleft}
+\vspace*{1cm}
+\hspace*{0.5cm}
+\only<1>{\scalebox{\scaleinf}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,2) rectangle (6.5,4);
+  \path[draw,rounded corners] (-1.5,-1) rectangle (7.5,5);
+  \exphinfblack{}
+\end{tikzpicture}
+}}%
+\only<2->{\scalebox{\scaleinf}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,2) rectangle (6.5,4);
+  \path[draw,rounded corners] (-1.5,-1) rectangle (7.5,5);
+  \exphinfblack{prio}
+\end{tikzpicture}
+}}
+\end{flushleft}
+\vspace{1.3cm}
+\begin{center}
+  \tval{Process Hitting}
+  
+  \only<1>{Loose behaviour}
+  \only<2->{Accurate behaviour}
+\end{center}
+
+\end{column}
+\begin{column}{0.15\textwidth}
+
+\vspace*{-1.5cm}
+\begin{center}
+\vspace*{1cm}
+\only<1>{\bigneq{100}{30}}%
+\only<2->{\bigneq{30}{10}}
+
+\begin{tikzpicture}
+  \path[use as bounding box] (1,-0.25) rectangle (2,0.25);
+  \path[draw=couleurtheme]<2-> (1.5, -0.75) edge[<-,draw,very thick] (1.5, .5);
+\end{tikzpicture}
+
+\uncover<2->{\bigeq}
+\end{center}
+
+\end{column}
+\begin{column}{0.35\textwidth}
+
+\vspace*{1.4cm}
+\begin{flushright}
+\begin{tikzpicture}[adn]
+  \path[use as bounding box] (0,-1) rectangle (2,1.5);
+  \path[draw,rounded corners] (-0.6,-.9) rectangle (2.6,2.3);
+  %\path[draw] (0,-0.7) rectangle (2,-0.7);
+  % Gènes
+  \node[inner sep=0] (a) at (0,1.5) {a};
+  \node[inner sep=0] (b) at (0,0) {b};
+  \node[inner sep=0] (z) at (2,0.75) {z};
+  % Arcs
+  \path (a) edge[act] node[elabel,above=-2pt] {$+$} (z);
+  \path (b) edge[inh] node[elabel,below=-2pt] {$-$} (z);
+\end{tikzpicture}
+\hspace*{0.9cm}
+\end{flushright}
+\smallskip
+\vspace*{-.5cm}
+\begin{center}
+  \tval{Usual modelling}\hspace*{0.4cm}
+  
+  ~Accurate behaviour\phantom{j}\hspace*{0.4cm}
+\end{center}
+
+\end{column}
+\end{columns}
+
+\end{frame}

@@ -1,0 +1,114 @@
+% What for
+
+\begin{frame}
+  \frametitle{What for?}
+
+\begin{center}
+\LARGE
+  Very well, but…
+
+\Huge
+  \vspace*{1em}
+  \pause
+  \tval{What's the point?}
+  \vspace*{.2em}
+\end{center}
+
+\pause
+\begin{columns}
+\begin{column}{.5\textwidth}
+
+\begin{itemize}
+  \item Validating the models
+  \item Predicting behaviours
+  \item Finding gene therapies
+\end{itemize}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\tikzstyle{abox}=[rounded corners, very thick, align=center]
+\tikzstyle{anedge}=[draw=black, ->, shorten <=5pt, shorten >=5pt, very thick]
+\tikzstyle{bigbox}=[rounded corners, line width=3pt]
+\definecolor{couleurcellule}{rgb}{1,.5,.3}
+
+\begin{frame}
+  \frametitle{Experiments \textit{in silico}}
+
+\begin{center}
+\scalebox{1.3}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-3.5) rectangle (5,1);
+  % Rectangles labos
+  \path[bigbox, draw=blue!50, fill=blue!10] (-2,-1.2) rectangle (6,1.2);
+  \node[darkblue!50, anchor=north east] at (6,1.2) {\textsc{wet lab}};
+  \path[bigbox, draw=yellow!80, fill=yellow!20] (-2,-1.9) rectangle (6,-4.1);
+  \node[darkyellow!50, anchor=north east] at (6,-1.9) {\textsc{dry lab}};
+  % Nœuds
+  \node[ellipse, draw=pink!100, fill=pink!30, decoration={coil}, decorate, align=center, very thick, inner sep=6.7pt] (sb) {Biological\\system};
+  \node[ellipse, draw=violet!80, fill=violet!15, align=center, thick, inner sep=2pt] at (sb) (system) {Biological\\system};
+  \node<2->[abox, draw=darkblue, fill=darkblue!30, right of=system, node distance=4cm] (exp) {Experiments\\\textit{in vivo / ex vivo}};
+  \node<3-4>[abox, ellipse, draw=notsodarkred, fill=red!30, below of=exp, node distance=3cm] (model) {Model};
+  \node<5->[abox, ellipse, draw=notsodarkgreen, fill=green!30, below of=exp, node distance=3cm] (model) {Model};
+  \node<4-5>[abox, draw=darkyellow, fill=yellow!40, left of=model, node distance=4cm] (valid) {Validation\\\textit{in silico}};
+  \node<7->[abox, draw=darkyellow, fill=yellow!40, draw=darkblue, fill=darkblue!30] at (valid) (predict) {Experiments\\\textit{in silico}};
+  % Arcs
+  \path<2->[anedge, bend left, shorten <=8pt, shorten >=8pt] (sb) edge (exp);
+  \path<3->[anedge] (exp) edge (model);
+  \path<4-5,7->[anedge, bend left] (model) edge (valid);
+  \path<5>[anedge, bend left] (valid) edge (model.north west);
+  \path<5>[anedge, bend right, in=240] (exp) edge (model.north west);
+  \path<8>[anedge] (predict) edge (exp.south west);
+  \path<8>[anedge, bend left, in=110] (model) edge (exp.south west);
+\end{tikzpicture}}
+\end{center}
+\end{frame}
+
+
+
+\tikzstyle{active}=[fill=yellow!70, thick]
+\tikzstyle{inactive}=[draw=gray, thick]
+\tikzstyle{badgene}=[active, draw=notsodarkred, -, decorate,decoration={zigzag,segment length=1pt,amplitude=.5pt}]
+\tikzstyle{inactivebadgene}=[inactive, -, decorate,decoration={zigzag,segment length=1pt,amplitude=.5pt}]
+
+\begin{frame}
+  \frametitle{Gene therapies}
+
+\tval{Modify} DNA to cure a disease
+
+\begin{itemize}
+  \item Replace a mutated gene \f remove a \tval{harmful protein}
+  \item Add a new gene \f produce a \tval{therapeutic protein}
+\end{itemize}
+
+\medskip
+\begin{center}
+\scalebox{1}{
+\begin{tikzpicture}[adn]
+  %\path[use as bounding box] (-0.7,-0.4) rectangle (2.5,2);
+  \node[active] (a) at (-1,0) {a}; \node[active] (b) at (0,0) {b}; \node[active] (c) at (1,0) {c};
+  \node[active] (d) at (-.5,-1) {}; \node[active] (e) at (.5,-1) {}; \node[active] (f) at (1.5,-1) {};
+  \node[active] (g) at (-1,-2) {}; \node<1>[active] (h) at (0,-2) {n};
+  \node[active] (i) at (-1.5,-3) {}; \node<-2>[active] (j) at (-.5,-3) {}; \node<-2>[active] (k) at (.5,-3) {};
+  \node<-2>[badgene] (x) at (-1,-4) {x}; \node<-2>[badgene] (y) at (0,-4) {y}; \node<-2>[badgene] (z) at (1,-4) {z};
+
+  \node<2->[inactive] at (h) {n};
+  \node<3->[inactive] at (j) {}; \node<3->[inactive] at (k) {};
+  \node<3->[inactivebadgene] at (x) {x}; \node<3->[inactivebadgene] at (y) {y}; \node<3->[inactivebadgene] at (z) {z};
+
+%  \uncover<2->{\path[draw=cyan, fill=gray!50, -, thick] (.4,-2) -- (1.5,-2) -- (1.2,-1.8) -- (2.5,-1.8) -- (2.9,-2) -- (1.7,-2) -- (2,-2.2) -- (.4,-2);}
+  \uncover<2->{\path[shading=1, left color=notsodarkred, right color=red!30]
+    (.4,-2) -- (1.5,-2.1) -- (1.2,-1.9) -- (2.5,-2.05) -- (2.8,-2.25) -- (1.7,-2.1) -- (2,-2.3) -- (.4,-2);}
+
+  \path
+    (a) edge[act] (d) (b) edge[act] (d) (b) edge[inh] (e) (c) edge[act] (e) (c) edge[act] (f)
+    (d) edge[inh, bend left] (g) (d) edge[inh] (h) (e) edge[act] (h)
+    (g) edge[act, bend left] (i) (g) edge[act, bend left] (d) (h) edge[act] (k) (h) edge[act, bend left] (j)
+    (i) edge[act, bend left] (g) (j) edge[act] (x) (j) edge[act] (y) (k) edge[act] (z) (j) edge[inh, bend left] (h);
+\end{tikzpicture}}
+\end{center}
+\end{frame}

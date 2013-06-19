@@ -1,0 +1,198 @@
+% What do I do?
+
+%\newcommand{\centr}[1]{\begin{center}#1\end{center}}
+%\newcommand{\spacr}[1]{\Large \vspace{.0em}#1\vspace{.0em}}
+%\newcommand{\spacr}[1]{\vspace{-1em}\centr{\Large #1}}
+
+\newcommand{\centr}[1]{#1\vspace*{.5em}}
+\newcommand{\spacr}[1]{{\Large #1}}
+
+\begin{frame}
+  \frametitle{What do I do?}
+
+\f Problem: easy to understand but hard to study (\tval{exponential})
+
+\bigskip
+\begin{tabular}{cc}%>{\vspace*{.5em}}
+  \tval{Model} & \tval{Possible configs} \\\hline
+  \tikz[adn]{\path[use as bounding box] (-.2,-.1) rectangle (1.7,.5);
+             \node(a){a};\node[right of=a](b){b};
+             \path(a)edge[bend left,act](b) (b)edge[bend left,inh](a);}
+    & \centr{\ex{4}}\\\pause
+  \tikz[adn]{\path[use as bounding box] (-1.7,-.1) rectangle (1.7,.5);
+             \node(a){a};\node[right of=a](b){b};\node[left of=a](c){c};
+             \path(a)edge[bend left,act](b) (b)edge[bend left,inh](a) (c)edge[act](a);}
+    & \vspace{-.5em}\centr{\ex{8}}\vspace{.5em}\\\pause
+  \centr{$\vdots$}
+    & \centr{$\vdots$} \\
+  \spacr{(10)}
+    & \centr{\ex{1024}}\\\pause
+  \spacr{(20)}
+    & \centr{\ex{1048576}}\\\pause
+  \spacr{(100)}
+    & \centr{\ex{1267650600000000000000000000000}}\\
+\end{tabular}
+
+\end{frame}
+
+
+\subsection{The Process Hitting framework}
+
+\begin{frame}[t]
+  \frametitle{The Process Hitting modelling}
+  \framesubtitle{\tcite{\citepmrtcsb}}
+
+% 1 : Sortes
+\only<1>{
+\tikzstyle{process}=[circle,minimum size=15pt,font=\footnotesize,inner sep=1pt]
+\tikzstyle{tick label}=[color=white, font=\footnotesize]
+\tikzstyle{tick}=[transparent]
+\tikzstyle{hit}=[transparent]
+\tikzstyle{selfhit}=[transparent, min distance=30pt,curve to]
+\tikzstyle{bounce}=[transparent]
+\tikzstyle{hlhit}=[transparent]
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \exphdef
+\end{tikzpicture}
+}\end{center}
+}
+
+% 2 : Processus
+\only<2>{
+\tikzstyle{process}=[circle,draw,minimum size=15pt,font=\footnotesize,inner sep=1pt]
+\tikzstyle{tick label}=[font=\footnotesize]
+\tikzstyle{tick}=[densely dotted]
+\tikzstyle{hit}=[transparent]
+\tikzstyle{selfhit}=[transparent, min distance=30pt,curve to]
+\tikzstyle{bounce}=[transparent]
+\tikzstyle{hlhit}=[transparent]
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \exphdef
+\end{tikzpicture}
+}\end{center}
+}
+
+% 3 : États
+\only<3>{
+\tikzstyle{hit}=[transparent]
+\tikzstyle{selfhit}=[transparent, min distance=30pt,curve to]
+\tikzstyle{bounce}=[transparent]
+\tikzstyle{hlhit}=[transparent]
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \exphdef
+
+  \TState{3}{a_0,b_1,z_0}
+\end{tikzpicture}
+}\end{center}
+}
+
+% 4 : Actions
+\only<4->{
+\tikzstyle{tick}=[densely dotted]
+\tikzstyle{hit}=[->,>=angle 45]
+\tikzstyle{selfhit}=[min distance=30pt,curve to]
+\tikzstyle{bounce}=[densely dotted,>=stealth',->]
+\tikzstyle{hlhit}=[very thick]
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \exphdef
+
+  \TState{4-5}{a_0,b_1,z_0}
+  \TState{6}{a_0,b_1,z_1}
+  \TState{7}{a_1,b_1,z_1}
+  \TState{8}{a_1,b_1,z_2}
+
+  \only<5>{
+    \THit{b_1}{hl}{z_0}{.west}{z_1}
+    \path[bounce,bend left,hl] \TBounce{z_0}{}{z_1}{.south};
+  }
+  \only<6>{
+    \THit{a_0}{out=250,in=200,selfhit,hl}{a_0}{.west}{a_1}
+    \path[bounce,bend left,hl] \TBounce{a_0}{}{a_1}{.south};
+  }
+  \only<7>{
+    \THit{a_1}{hl}{z_1}{.west}{z_2}
+    \path[bounce,bend left,hl] \TBounce{z_1}{}{z_2}{.south};
+  }
+\end{tikzpicture}
+}\end{center}
+}
+
+%\medskip
+\begin{liste}
+  \item \tval{Sorts}: components \qex{$a$, $b$, $z$}
+\pause[2]
+  \item \tval{Processes}: local states / levels of expression \qex{$z_0$, $z_1$, $z_2$}
+\pause[3]
+  \item \tval{States}: sets of active processes%
+  \only<3-5>{\qex{$\PHetat{a_0, b_1, z_0}$}}%
+  \only<6>{\qex{$\PHetat{a_0, b_1, z_1}$}}%
+  \only<7>{\qex{$\PHetat{a_1, b_1, z_1}$}}%
+  \only<8>{\qex{$\PHetat{a_1, b_1, z_2}$}}%
+\pause[4]
+  \item \tval{Actions}: dynamics \qex{\only<5>{\underline}{$\PHfrappe{b_1}{z_0}{z_1}$}, \only<6>{\underline}{$\PHfrappe{a_0}{a_0}{a_1}$}, \only<7>{\underline}{$\PHfrappe{a_1}{z_1}{z_2}$}}
+\end{liste}
+\end{frame}
+
+
+
+\subsection{Static analysis}
+
+\newcommand{\sortname}[1]{\tikz{\path[use as bounding box] (-.2,-.1) rectangle (.2,.12);\node[sort] at (0,0) {#1};}}
+
+\begin{frame}[t]
+  \frametitle{Static analysis}
+  \framesubtitle{\tcite{\citepmrmscs}}
+
+{
+\tikzstyle{tick}=[densely dotted]
+\tikzstyle{hit}=[->,>=angle 45]
+\tikzstyle{selfhit}=[min distance=30pt,curve to]
+\tikzstyle{bounce}=[densely dotted,>=stealth',->]
+\tikzstyle{hlhit}=[very thick]
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \exphdef
+
+  \TState{1-}{a_0,b_1,z_0}
+  \node[process,very thick] at (z_2.center) {?};
+\end{tikzpicture}
+}\end{center}
+}
+
+Questions:
+\begin{itemize}
+  \item Can I \tval{reach} level $2$ of \sortname{z}?
+  \item Do I need to \tval{knock-out} \sortname{b}, what changes?
+  \item If I add \tval{new actions} on \sortname{a}, what changes?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Over- and Under-approximations}
+  \framesubtitle{\tcite{\citepmrmscs}}
+
+\begin{fleches}
+  \item Directly checking $R$ is hard (\tval{exponential})
+  \item Rather check \tval{approximations} $P$ and $Q$:
+\end{fleches}
+
+\begin{center}
+\scalebox{0.7}{
+  \figsa
+}
+\end{center}
+
+\uncover<8->{
+%Polynomial w.r.t.~the number of sorts and \\exponential w.r.t.~the number of processes in each sort
+Computing $P$ or $Q$ is much simpler (roughly \tval{polynomial})
+\begin{fleches}
+  \item Efficient for big models \f \tval{Hundredths of seconds}
+\end{fleches}
+}
+\end{frame}
