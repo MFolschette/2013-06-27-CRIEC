@@ -112,3 +112,54 @@
 \end{tikzpicture}}
 \end{center}
 \end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Back to the Over-approximation}
+
+\begin{columns}[t]
+\begin{column}{0.48\textwidth}
+\begin{center}
+\scalebox{0.55}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-2.5) rectangle (7,2.5);
+  \exatt
+  \TState{1-}{a_1,b_1,c_1,d_0}
+  \node[objective] (d_2) at (d_2.center) {?};
+\end{tikzpicture}
+}
+\end{center}
+\bigskip
+
+\end{column}
+\begin{column}{0.52\textwidth}
+
+\tval{Necessary condition}:
+
+\smallskip
+There exists a traversal
+with no cycle
+
+\smallskip
+\begin{itemize}
+  \item objective $\rightarrow$ follow \tval{one} solution
+  \item solution $\rightarrow$ follow \tval{all} processes
+  \item process $\rightarrow$ follow \tval{all} objectives
+\end{itemize}
+\begin{center}\Large
+  \only<2-3>{\textcolor{darkyellow}{\textbf{$R$ is \textbf{true} $\Rightarrow$ Inconclusive}}}%
+  \only<5->{\textcolor{red}{$Q$ is \textbf{false} $\Rightarrow$ $R$ is \textbf{false}}}%
+\end{center}
+
+\end{column}
+\end{columns}
+
+%\bigskip
+
+\begin{center}
+\scalebox{\scaleex}{
+  \saoinconc
+}
+\end{center}
+\end{frame}
